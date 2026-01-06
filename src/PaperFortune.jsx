@@ -125,13 +125,7 @@ export default function PaperFortune({ fortunes = DEFAULT_FORTUNES, onFortuneRev
       onFortuneRevealed(callbackData);
     }
     
-    // Reset to initial state after showing fortune (3 seconds)
-    setTimeout(() => {
-      setRevealedFortune(null);
-      setSvgState(SVG_STATES.CLOSED);
-      setCurrentTurn(0);
-      hasCalledCallback.current = false; // Allow new game
-    }, 3000);
+    // No auto-restart - stay on opened state
   }, [fortunes, onFortuneRevealed]);
 
   const handleFlapClick = useCallback((flapId, fillColor) => {
@@ -276,13 +270,6 @@ export default function PaperFortune({ fortunes = DEFAULT_FORTUNES, onFortuneRev
           onMouseOut={handleMouseOut}
         />
         {getTapIndicators()}
-        {/* Fortune revealed - show in black tooltip */}
-        {revealedFortune && (
-          <div className="fortune-tooltip">
-            <span className="fortune-emoji">🔮</span>
-            <span className="fortune-text">{revealedFortune.text}</span>
-          </div>
-        )}
       </div>
     </div>
   );
